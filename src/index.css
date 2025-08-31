@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .animate-in {
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+  }
+  
+  .animate-out {
+    animation-duration: 150ms;
+    animation-fill-mode: both;
+  }
+  
+  .fade-in-0 {
+    animation-name: fadeIn;
+  }
+  
+  .fade-out-0 {
+    animation-name: fadeOut;
+  }
+  
+  .zoom-in-95 {
+    animation-name: zoomIn;
+    --scale: 0.95;
+  }
+  
+  .zoom-out-95 {
+    animation-name: zoomOut;
+    --scale: 0.95;
+  }
+  
+  .slide-in-from-top-2 {
+    animation-name: slideInFromTop;
+    --offset: 2px;
+  }
+  
+  .slide-in-from-bottom-2 {
+    animation-name: slideInFromBottom;
+    --offset: 2px;
+  }
+  
+  .slide-in-from-left-2 {
+    animation-name: slideInFromLeft;
+    --offset: 2px;
+  }
+  
+  .slide-in-from-right-2 {
+    animation-name: slideInFromRight;
+    --offset: 2px;
+  }
+  
+  .slide-in-from-left-1\/2 {
+    animation-name: slideInFromLeft;
+    --offset: -50%;
+  }
+  
+  .slide-in-from-top-\[48\%\] {
+    animation-name: slideInFromTop;
+    --offset: -48%;
+  }
+  
+  .slide-out-to-left-1\/2 {
+    animation-name: slideOutToLeft;
+    --offset: -50%;
+  }
+  
+  .slide-out-to-top-\[48\%\] {
+    animation-name: slideOutToTop;
+    --offset: -48%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(var(--scale, 1));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(var(--scale, 1));
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(var(--offset, 0));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--offset, 0)));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(var(--offset, 0));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--offset, 0)));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToTop {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(var(--offset, 0));
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(var(--offset, 0));
+  }
+}

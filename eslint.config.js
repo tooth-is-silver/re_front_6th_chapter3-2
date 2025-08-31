@@ -130,7 +130,7 @@ export default [
 
   // Cypress E2E test files configuration
   {
-    files: ['cypress/e2e/**/*.cy.js'],
+    files: ['cypress/e2e/*.cy.ts', 'cypress/**/*.ts'],
     plugins: {
       cypress: cypressPlugin,
     },
@@ -143,6 +143,13 @@ export default [
         Cypress: 'readonly',
         expect: 'readonly',
         assert: 'readonly',
+        globalThis: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
       },
     },
   },

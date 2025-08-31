@@ -2,6 +2,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 
 import { Event, EventForm } from '../types';
+import { generateRepeatEvents } from '../utils/generateRepeatEvents';
 
 export const useEventOperations = (editing: boolean, onSave?: () => void) => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -25,10 +26,20 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
     try {
       let response;
       if (editing) {
+        const editingEvent = {
+          ...eventData,
+          // ! TEST CASE
+          repeat: eventData.repeat ?? {
+            type: 'none',
+            interval: 0,
+            endDate: '',
+          },
+        };
+
         response = await fetch(`/api/events/${(eventData as Event).id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(eventData),
+          body: JSON.stringify(editingEvent),
         });
       } else {
         response = await fetch('/api/events', {
@@ -69,6 +80,28 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
     }
   };
 
+  const createRepeatEvent = async (eventData: EventForm) => {
+    try {
+      const newEvents = generateRepeatEvents(eventData);
+      const response = await fetch('/api/events-list', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ events: newEvents }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save event');
+      }
+
+      await fetchEvents();
+      onSave?.();
+      enqueueSnackbar('일정이 추가되었습니다', { variant: 'success' });
+    } catch (error) {
+      console.error('Error saving event:', error);
+      enqueueSnackbar('일정 저장 실패', { variant: 'error' });
+    }
+  };
+
   async function init() {
     await fetchEvents();
     enqueueSnackbar('일정 로딩 완료!', { variant: 'info' });
@@ -79,5 +112,5 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { events, fetchEvents, saveEvent, deleteEvent };
+  return { events, fetchEvents, saveEvent, deleteEvent, createRepeatEvent };
 };
