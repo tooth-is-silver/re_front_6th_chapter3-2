@@ -147,8 +147,9 @@ describe('주간 반복', () => {
     const result = generateRepeatEvents(event);
     expect(result).toHaveLength(3);
     expect(result.map((e) => e.date)).toEqual(['2024-01-01', '2024-01-15', '2024-01-29']);
-  }
+  });
 });
+
 // 4단계: 월간 반복 구현
 // 요구사항 4.1 - 매월 같은 날짜에 반복
 
@@ -255,7 +256,7 @@ describe('연간 반복', () => {
     const result = generateRepeatEvents(event);
     expect(result).toHaveLength(3);
     expect(result.map((e) => e.date)).toEqual(['2024-01-01', '2025-01-01', '2026-01-01']);
-  })
+  });
 
   it('2024-01-01부터 2년마다 같은 날짜에 반복되는 일정은 2024-01-01, 2026-01-01, 2028-01-01에 동일한 일정이 있다.', () => {
     const event: Event = {
@@ -273,7 +274,7 @@ describe('연간 반복', () => {
     const result = generateRepeatEvents(event);
     expect(result).toHaveLength(3);
     expect(result.map((e) => e.date)).toEqual(['2024-01-01', '2026-01-01', '2028-01-01']);
-  })
+  });
 
   it('2024-02-29부터 1년마다 같은 날짜에 반복되는 일정은 2024-02-29, 2028-02-29에 동일한 일정이 있다.', () => {
     const event: Event = {
@@ -291,8 +292,8 @@ describe('연간 반복', () => {
     const result = generateRepeatEvents(event);
     expect(result).toHaveLength(2);
     expect(result.map((e) => e.date)).toEqual(['2024-02-29', '2028-02-29']);
-  })
-})
+  });
+});
 
 // 6단계: 예외 상황 처리
 // 요구사항 6.1 - 간격이 0인 경우
@@ -301,7 +302,7 @@ describe('연간 반복', () => {
 // 이런 경우 반복하지 않고 원본 이벤트 하나만 반환해야 합니다
 
 describe('예외 상황 처리', () => {
-  it('반복 간격이 0인 경우, 기존에 이벤트 하나만 반환된다.',() => {
+  it('반복 간격이 0인 경우, 기존에 이벤트 하나만 반환된다.', () => {
     const event: Event = {
       id: '1',
       title: '반복 간격이 0인 이벤트',
@@ -317,5 +318,5 @@ describe('예외 상황 처리', () => {
     const result = generateRepeatEvents(event);
     expect(result).toHaveLength(1);
     expect(result).toEqual([event]);
-  })
-})
+  });
+});
