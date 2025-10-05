@@ -69,6 +69,11 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
     }
   };
 
+  // 반복 이벤트 생성 로직
+  const createRepeatEvent = async () => {
+    return;
+  };
+
   async function init() {
     await fetchEvents();
     enqueueSnackbar('일정 로딩 완료!', { variant: 'info' });
@@ -79,5 +84,5 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { events, fetchEvents, saveEvent, deleteEvent };
+  return { events, fetchEvents, saveEvent, deleteEvent, createRepeatEvent };
 };
